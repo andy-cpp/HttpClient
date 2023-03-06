@@ -18,8 +18,12 @@ void Request::SetHeader(std::vector<std::string> const& headers)
     curl_easy_setopt(m_handle, CURLOPT_HTTPHEADER, LinkedList(headers).GetList());
 }
 
-void Request::Go(std::string const& url)
+Response Request::Go(std::string const& url)
 {
+    Response response(m_handle);
     curl_easy_setopt(m_handle, CURLOPT_URL, url.c_str());
     curl_easy_perform(m_handle);
+
+    response.PostPerform();
+    return response;
 }

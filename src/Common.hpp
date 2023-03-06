@@ -1,9 +1,11 @@
 #pragma once
+#include <memory>
 #include <vector>
 #include <string>
+#include <unordered_map>
 
 #include <curl/curl.h>
-
+#include <curl/easy.h>
 
 class LinkedList
 {
