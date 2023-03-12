@@ -10,7 +10,7 @@ public:
         return m_headers.at(key);
     }
 
-    std::string Set(std::string const& key, std::string const& value)
+    void Set(std::string const& key, std::string const& value)
     {
         m_headers[key] = value;
     }

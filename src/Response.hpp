@@ -1,21 +1,21 @@
 #pragma once
 #include "Common.hpp"
 #include "Header.hpp"
+
 class Request;
 
 class Response
 {
 protected:
     friend class Request;
-    Response(CURL* handle);
+    void PrePerform(CURL* handle);
 
     void PostPerform();
 public:
 
-
-private:
-    long m_code = 0;
-    std::string m_body;
-    Headers m_headers;
-    CURL* m_handle = 0;
+public:
+    long code = 0;
+    std::string body;
+    Headers headers;
+    CURL* handle = 0;
 };
