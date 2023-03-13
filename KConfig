@@ -1,3 +1,6 @@
-config HAS64
-    bool "Has 64 bit"
-    default True
+config EXCEPTIONS
+    bool "Toggles exceptions on errors"
+    default y
+config TIMEOUT_MS
+    int "Transfer timeout ms"
+    default 0

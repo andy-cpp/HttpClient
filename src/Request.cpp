@@ -1,9 +1,13 @@
 #include <thread>
 #include "Request.hpp"
+#include <stdexcept>
 
 Request::Request()
 {
     m_handle = curl_easy_init();
+    #if CONFIG_TIMEOUT_MS != 0
+    curl_easy_setopt(m_handle, CURLOPT_TIMEOUT_MS, CONFIG_TIMEOUT_MS);
+    #endif
 }
 
 void Request::SetHeader(std::string const& key, std::string const& value)
@@ -47,6 +51,11 @@ Response& Request::Go(std::string const& url)
     curl_easy_setopt(m_handle, CURLOPT_URL, url.c_str());
     curl_easy_perform(m_handle);
 
+    #ifdef CONFIG_EXCEPTIONS
+    if(ret != CURLE_OK){
+        throw std::runtime_error(std::string("Error performing request: ") + curl_easy_strerror(ret));
+    }
+    #endif
     m_response.PostPerform();
     return m_response;
 }
