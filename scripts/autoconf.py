@@ -1,5 +1,8 @@
 import kconfiglib
-import sys
+import sys, os
+
+if not os.path.exists("include"):
+    os.makedirs("include")
 
 try:
     conf = kconfiglib.Kconfig("Kconfig")
